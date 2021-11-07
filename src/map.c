@@ -6,10 +6,10 @@
 void drawWalls(void)
 {
 	SDL_Rect rect;
-	int stepX = 8, stepY = 8;
+	int stepX = 4, stepY = 4;
 	int x, y;
 
-	rect.h = rect.w = 8;
+	rect.h = rect.w = 4;
 	rect.x = rect.y = 0;
 	for (y = 0; y < MAP_HEIGHT; y++)
 	{
@@ -19,7 +19,7 @@ void drawWalls(void)
 			SDL_RenderDrawRect(app.renderer, &rect);
 			if (Map.map[y][x] != 0)
 				SDL_SetRenderDrawColor(app.renderer,
-						       0, 255, 255, 255);
+						       3, 37, 76, 255);
 			else
 				SDL_SetRenderDrawColor(app.renderer,
 						       255, 255, 255, 255);
@@ -35,17 +35,22 @@ void drawWalls(void)
  */
 void drawRays(void)
 {
-	int hx, hy, i;
-	int px = player.x * 8;
-	int py = player.y * 8;
+	SDL_Rect rect;
+	int hx, hy;//, i;
+	int wallWidth = 4, wallHeight = 4;
+	int px = player.x * wallWidth;
+	int py = player.y * wallHeight;
+	int lineLength = 8;
 
-	SDL_SetRenderDrawColor(app.renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
-	for (i = 0; i < SCREEN_WIDTH; i++)
-	{
-		hx = px + hitCorr.corr[0][i] * cos(hitCorr.corr[1][i]) * 8;
-		hy = py + hitCorr.corr[0][i] * sin(hitCorr.corr[1][i]) * 8;
-		SDL_RenderDrawLine(app.renderer, px, py, hx, hy);
-	}
+	rect.h = rect.w = 2;
+	rect.x = px;
+	rect.y = py;
+	hx = px + lineLength * cos(player.dir);
+	hy = py + lineLength * sin(player.dir);
+	SDL_SetRenderDrawColor(app.renderer, 228, 34, 64, 255);
+	SDL_RenderDrawRect(app.renderer, &rect);
+	SDL_RenderFillRect(app.renderer, &rect);
+	SDL_RenderDrawLine(app.renderer, px, py, hx, hy);
 }
 
 /**
@@ -53,6 +58,8 @@ void drawRays(void)
  */
 void drawMap(void)
 {
+	if (Map.mapTime > 0)
+		Map.mapTime--;
 	if (Map.disp)
 	{
 		drawWalls();

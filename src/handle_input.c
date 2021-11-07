@@ -88,7 +88,11 @@ void playerPos(void)
 
 	if (app.keyboard[SDL_SCANCODE_RCTRL])
 	{
-		Map.disp = !Map.disp;
+		if (Map.mapTime <= 0)
+		{
+			Map.disp = !Map.disp;
+			Map.mapTime = 10;
+		}
 	}
 
 	if (Map.map[(int) (player.y + dy)][(int) (player.x + dx)] == 0)

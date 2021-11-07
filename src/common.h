@@ -6,8 +6,10 @@
 #define MAP_WIDTH 24
 #define MAP_HEIGHT 24
 #define NUM_TEXTURE 8
-#define TEXTURE_WIDTH 64
-#define TEXTURE_HEIGHT 64
+#define TEXTURE_WIDTH 128
+#define TEXTURE_HEIGHT 128
+#define SKY_TEXTURE_WIDTH 2048
+#define SKY_TEXTURE_HEIGHT 1024
 #define PROJ_PLANE_DISTANCE (SCREEN_WIDTH / (2 * tan(FOV / 2)))
 #define PLAYER_HEIGHT 32
 #define NUM_GUNS 4
@@ -48,12 +50,13 @@ typedef struct Player {
 typedef struct Pxl {
 	unsigned int *pixels;
 	unsigned int *texPixels[NUM_TEXTURE];
+	unsigned int *skyPixels;
 } Pxl;
 
 typedef struct Map {
 	unsigned int map[MAP_WIDTH][MAP_HEIGHT];
 	int disp;
-	int time;
+	int mapTime;
 } Map_s;
 
 typedef struct HitCorr

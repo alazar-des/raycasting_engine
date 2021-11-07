@@ -49,9 +49,10 @@ void initSDL(void)
 void getWallPixels(void)
 {
 	char *filename[NUM_TEXTURE] = {
-		"res/wood.png", "res/purplestone.png", "res/bluestone.png",
-		"res/colorstone.png", "res/colorstone.png",
-		"res/colorstone.png", "res/bluestone.png", "res/redbrick.png"
+		"res/doors_trapdoor_steel.png", "res/default_stone_brick.png",
+		"res/bluestone.png",
+		"res/colorstone.png", "res/default_mossycobble.png",
+		"res/colorstone.png", "res/bluestone.png", "res/grass.png"
 	};
 	int i;
 
@@ -84,13 +85,45 @@ void getWallPixels(void)
 }
 
 /**
+ * getSkyPixels - Load wall textures and Read their pixels.
+ */
+void getSkyPixels(void)
+{
+	char *filename = "res/sky.jpg";
+
+	pxl.skyPixels = malloc(SKY_TEXTURE_WIDTH * SKY_TEXTURE_HEIGHT *
+					  sizeof(unsigned int));
+	memset(pxl.skyPixels, 0, SKY_TEXTURE_WIDTH * SKY_TEXTURE_HEIGHT *
+	       sizeof(unsigned int));
+
+	app.loadSurface = IMG_Load(filename);
+	if (app.loadSurface == NULL)
+	{
+		printf("Couldn't load surface: %s\n", SDL_GetError());
+		exit(1);
+	}
+
+	app.convSurface = SDL_ConvertSurfaceFormat(app.loadSurface,
+						   SDL_PIXELFORMAT_RGBA8888,
+						   0);
+	if (app.convSurface == NULL)
+	{
+		printf("Unable to convert loaded surface: %s\n",
+		       SDL_GetError());
+		exit(1);
+	}
+	memcpy(pxl.skyPixels, app.convSurface->pixels,
+	       app.convSurface->pitch * app.convSurface->h);
+}
+
+/**
  * initPlayer - initialze player position and load gun textures
  */
 void initPlayer(void)
 {
 	char *filename[NUM_GUNS] = {
-		"res/g1.png", "res/g2.png",
-		"res/g3.png", "res/g4.png"
+		"res/guns/gun1a.png", "res/guns/gun2.png",
+		"res/guns/gun4.png", "res/guns/gun5a.png"
 	};
 	int i;
 
@@ -129,6 +162,8 @@ void cleanup(void)
 		if (pxl.texPixels[i] != NULL)
 			free(pxl.texPixels[i]);
 	}
+	if (pxl.skyPixels != NULL)
+		free(pxl.skyPixels);
 
 	SDL_FreeSurface(app.loadSurface);
 	SDL_FreeSurface(app.convSurface);
@@ -144,5 +179,6 @@ void init(void)
 			    sizeof(unsigned int));
 
 	getWallPixels();
+	getSkyPixels();
 	initPlayer();
 }

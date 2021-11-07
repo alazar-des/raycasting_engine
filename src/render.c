@@ -19,7 +19,9 @@ void renderPlayer(void)
 
 	SDL_QueryTexture(player.gunTextures[player.numGun],
 			 NULL, NULL, &dest.w, &dest.h);
-	dest.x = (int) (SCREEN_WIDTH - 1.2 * dest.w);
+	dest.h = 4 * dest.h;
+	dest.w = 4 * dest.w;
+	dest.x = (int) (SCREEN_WIDTH - dest.w) / 2;
 	dest.y = SCREEN_HEIGHT - dest.h;
 
 	SDL_RenderCopy(app.renderer, player.gunTextures[player.numGun],

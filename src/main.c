@@ -11,10 +11,10 @@ int main(int argc, char *argv[])
 	while (1)
 	{
 		input();
-		memset(pxl.pixels, 0,
+		memset(pxl.pixels, 6408158,
 		       SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(unsigned int));
 		rayCast();
-		SDL_SetRenderDrawColor(app.renderer, 0, 0, 0, 255);
+		SDL_SetRenderDrawColor(app.renderer, 0, 0, 0, 0);
 		SDL_RenderClear(app.renderer);
 		renderAll();
 		drawMap();

@@ -121,7 +121,7 @@ void checkVertical(Ray *ray_v, double rdir)
 void generatePixel(int column, double height, int numWall, int x,
 		   double rdir, int side)
 {
-	int start, end, i, r, tx, ty;
+	int start, end, i, r, tx, ty, txs, tys;
 	double step, y = 0, fx, fy;
 	double rcos = cos(rdir), rsin = sin(rdir);
 	double dcos = cos(player.dir - rdir);
@@ -142,7 +142,7 @@ void generatePixel(int column, double height, int numWall, int x,
 	{
 		color = pxl.texPixels[numWall - 1][x + (int) y * TEXTURE_WIDTH];
 		if(side == 1)
-			color = (color >> 1);
+			color = color;
 		pxl.pixels[column + i * SCREEN_WIDTH] = color;
 		y += step;
 	}
@@ -151,13 +151,17 @@ void generatePixel(int column, double height, int numWall, int x,
 	{
 		r = (i - SCREEN_HEIGHT / 2);
 		swallDist = 0.5 * PROJ_PLANE_DISTANCE / r;
-		wallDist = swallDist * dcos;
+		wallDist = swallDist / dcos;
 		fx = (player.x + wallDist * rcos);
 		fy = (player.y + wallDist * rsin);
-		tx = (int) ((fx - (int) fx) * TEXTURE_HEIGHT);
+		tx = (int) ((fx - (int) fx) * TEXTURE_WIDTH);
 		ty = (int) ((fy - (int) fy) * TEXTURE_HEIGHT);
+		txs = (int) ((fx / MAP_WIDTH) * SKY_TEXTURE_WIDTH);
+		tys = (int) ((fy / MAP_WIDTH) * SKY_TEXTURE_HEIGHT);
 		pxl.pixels[column + i * SCREEN_WIDTH] =
-			pxl.texPixels[0][tx + ty * TEXTURE_WIDTH];
+			pxl.texPixels[7][tx + ty * TEXTURE_WIDTH];
+		pxl.pixels[column + (SCREEN_HEIGHT - i - 1) * SCREEN_WIDTH] =
+			pxl.skyPixels[txs + tys * SKY_TEXTURE_WIDTH];
 	}
 }
 
