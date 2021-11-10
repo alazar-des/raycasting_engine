@@ -1,3 +1,6 @@
+#ifndef HI
+#define HI
+
 #include "common.h"
 #include "parse.h"
 
@@ -7,3 +10,5 @@
 extern App app;
 extern Player player;
 extern Map_s Map;
+
+#endif

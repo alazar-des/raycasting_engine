@@ -1,5 +1,5 @@
 # Source files
-OBJS = src/handle_input.c src/initSDL.c src/main.c src/parse.c src/rc.c src/render.c src/map.c
+OBJS = src/handle_input.c src/initSDL.c src/main.c src/parse.c src/rc.c src/render.c src/map.c src/init.c
 
 # Compiler
 CC = gcc

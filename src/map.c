@@ -31,12 +31,12 @@ void drawWalls(void)
 }
 
 /**
- * drawRay - draw line starting from player position to wall hit
+ * drawRays - draw line starting from player position to wall hit
  */
 void drawRays(void)
 {
 	SDL_Rect rect;
-	int hx, hy;//, i;
+	int hx, hy;
 	int wallWidth = 4, wallHeight = 4;
 	int px = player.x * wallWidth;
 	int py = player.y * wallHeight;

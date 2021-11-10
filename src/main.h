@@ -1,3 +1,6 @@
+#ifndef HF_M
+#define HF_M
+
 #include "common.h"
 
 extern App app;
@@ -10,3 +13,5 @@ void parseMap(void);
 void renderAll(void);
 void cleanup(void);
 void drawMap(void);
+
+#endif

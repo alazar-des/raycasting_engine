@@ -1,5 +1,10 @@
+#ifndef HF_SDL
+#define HF_SDL
+
 #include "common.h"
 
 App app;
-Pxl pxl;
-Player player;
+extern Pxl pxl;
+extern Player player;
+
+#endif
