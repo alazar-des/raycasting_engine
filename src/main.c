@@ -19,15 +19,13 @@ int main(int argc, char *argv[])
 
 	while (1)
 	{
-		input();
-		memset(pxl.pixels, 0,
-		       SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(unsigned int));
 		rayCast();
 		SDL_SetRenderDrawColor(app.renderer, 0, 0, 0, 0);
 		SDL_RenderClear(app.renderer);
 		renderAll();
 		drawMap();
 		SDL_RenderPresent(app.renderer);
+		input();
 	}
 	return (0);
 }
