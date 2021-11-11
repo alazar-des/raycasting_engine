@@ -72,12 +72,24 @@ void playerPos(void)
 	{
 		dx = PLAYER_SPEED * cos(player.dir);
 		dy = PLAYER_SPEED * sin(player.dir);
+		if (Map.map[(int) (player.y + dy)][(int) (player.x + dx)] == 0
+		|| Map.map[(int) (player.y + dy)][(int) (player.x + dx)] >= 10)
+	{
+		player.x += dx;
+		player.y += dy;
+	}
 	}
 
 	if (app.keyboard[SDL_SCANCODE_DOWN])
 	{
 		dx = -PLAYER_SPEED * cos(player.dir);
 		dy = -PLAYER_SPEED * sin(player.dir);
+		if (Map.map[(int) (player.y + dy)][(int) (player.x + dx)] == 0
+		|| Map.map[(int) (player.y + dy)][(int) (player.x + dx)] >= 10)
+	{
+		player.x += dx;
+		player.y += dy;
+	}
 	}
 
 	if (app.keyboard[SDL_SCANCODE_LCTRL])
@@ -97,13 +109,6 @@ void playerPos(void)
 			Map.disp = !Map.disp;
 			Map.mapTime = 10;
 		}
-	}
-
-	if (Map.map[(int) (player.y + dy)][(int) (player.x + dx)] == 0
-		|| Map.map[(int) (player.y + dy)][(int) (player.x + dx)] >= 10)
-	{
-		player.x += dx;
-		player.y += dy;
 	}
 }
 
